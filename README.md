@@ -39,7 +39,7 @@ Accesibilify makes reading easier for everyone by allowing users to tailor web p
 
 1. Clone the repository to your local machine:  
    ```bash
-   git clone https://github.com/imnayakshubham/accessibility-widget-chrome-extension.git
+   git clone https://github.com/imnayakshubham/Accesibilify.git
 
 2. Install dependencies:
 
