@@ -10,16 +10,16 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
     useEffect(() => {
         document.head.insertAdjacentHTML(
             'beforeend',
-            `<style id="react-accessibility-styles"></style>`
+            `<style id="accessibility-styles"></style>`
         );
     }, []);
 
     useEffect(() => {
-        let styleElement = document.getElementById('react-accessibility-styles');
+        let styleElement = document.getElementById('accessibility-styles');
 
         if (!styleElement) {
             styleElement = document.createElement('style');
-            styleElement.id = 'react-accessibility-styles';
+            styleElement.id = 'accessibility-styles';
             document.head.appendChild(styleElement);
         }
 
