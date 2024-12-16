@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "Accessibility Extension",
+    "description": "Adds a Accessibility button to the bottom right of the page",
+    "version": "1.0",
+    "permissions": [
+        "storage"
+    ],
+    "content_scripts": [
+        {
+            "js": [
+                "src/content.jsx"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}
