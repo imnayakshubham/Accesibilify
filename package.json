@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:web": "vite build --mode web",
+    "build:extension": "vite build --mode extension"
   },
   "dependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.28",
