@@ -4,6 +4,29 @@ import { crx } from '@crxjs/vite-plugin';
 import manifest from './manifest.json';
 
 export default defineConfig(({ command, mode }) => {
+  if (mode === 'sdk') {
+    return {
+      plugins: [react()],
+      build: {
+        lib: {
+          entry: 'src/sdk.tsx',
+          name: 'AccesibilifySDK',
+          formats: ['umd', 'es'],
+          fileName: (format) => `accesibilify-sdk.${format}.js`
+        },
+        rollupOptions: {
+          external: ['react', 'react-dom'],
+          output: {
+            globals: {
+              react: 'React',
+              'react-dom': 'ReactDOM'
+            }
+          }
+        }
+      }
+    };
+  }
+
   if (command === 'build' && mode === 'extension') {
     // Chrome Extension build configuration
     return {

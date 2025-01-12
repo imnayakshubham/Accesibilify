@@ -14,11 +14,15 @@ function App() {
       <Navbar />
       <Products />
       <Footer />
-      <AppContextProvider>
-        <Widget />
-      </AppContextProvider>
+      <Accesibilify />
     </>
   )
+}
+
+const Accesibilify = () => {
+  return <AppContextProvider>
+    <Widget />
+  </AppContextProvider>
 }
 
 export default App
