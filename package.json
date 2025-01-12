@@ -10,6 +10,7 @@
     "build:web": "vite build --mode web",
     "build:extension": "vite build --mode extension",
     "build:sdk": "vite build --mode sdk",
+    "build:sdk_web": "npm run build:web && npm run build:extension && npm run build:sdk",
     "build:all": "npm run build:web && npm run build:extension && npm run build:sdk"
   },
   "dependencies": {
