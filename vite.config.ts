@@ -16,11 +16,15 @@ export default defineConfig(({ command, mode }) => {
           fileName: (format) => `accesibilify-sdk.${format}.js`
         },
         rollupOptions: {
+          external: ['react', 'react-dom'],
           output: {
+            globals: {
+              react: 'React',
+              'react-dom': 'ReactDOM'
+            },
             name: 'AccesibilifySDK',
             minifyInternalExports: true,
-            compact: true,
-            manualChunks: undefined
+            compact: true
           }
         },
         minify: 'terser',

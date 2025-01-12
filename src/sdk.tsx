@@ -28,7 +28,34 @@ const defaultConfig: AccesibilifyConfig = {
     }
 };
 
-export const initAccesibilify = (userConfig: AccesibilifyConfig = {}) => {
+function loadReactDependencies(): Promise<void> {
+    return new Promise<void>((resolve) => {
+        if (window.React && window.ReactDOM) {
+            resolve();
+            return;
+        }
+
+        const reactScript = document.createElement('script');
+        reactScript.src = 'https://unpkg.com/react@18/umd/react.production.min.js';
+
+        const reactDomScript = document.createElement('script');
+        reactDomScript.src = 'https://unpkg.com/react-dom@18/umd/react-dom.production.min.js';
+
+        reactScript.onload = () => {
+            document.head.appendChild(reactDomScript);
+        };
+
+        reactDomScript.onload = () => {
+            resolve();
+        };
+
+        document.head.appendChild(reactScript);
+    });
+}
+
+export const initAccesibilify = async (userConfig: AccesibilifyConfig = {}) => {
+    await loadReactDependencies();
+
     const config = { ...defaultConfig, ...userConfig };
 
     // Load required CSS
@@ -72,7 +99,6 @@ export const initAccesibilify = (userConfig: AccesibilifyConfig = {}) => {
         </AppContextProvider>
     );
 
-    // Return destroy method
     return {
         destroy: () => {
             root.unmount();
@@ -84,12 +110,18 @@ export const initAccesibilify = (userConfig: AccesibilifyConfig = {}) => {
 };
 
 // Make it available globally for UMD
-if (typeof window !== 'undefined') {
-    (window as any).AccesibilifySDK = {
-        init: initAccesibilify
-    };
-}
-
-export default {
+const SDK = {
     init: initAccesibilify
 };
+
+declare global {
+    interface Window {
+        AccesibilifySDK: typeof SDK;
+    }
+}
+
+if (typeof window !== 'undefined') {
+    window.AccesibilifySDK = SDK;
+}
+
+export default SDK;
