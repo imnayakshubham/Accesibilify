@@ -8,6 +8,7 @@ export default defineConfig(({ command, mode }) => {
     return {
       plugins: [react()],
       build: {
+        outDir: 'dist/sdk',
         lib: {
           entry: 'src/sdk.tsx',
           name: 'AccesibilifySDK',
@@ -15,14 +16,16 @@ export default defineConfig(({ command, mode }) => {
           fileName: (format) => `accesibilify-sdk.${format}.js`
         },
         rollupOptions: {
-          external: ['react', 'react-dom'],
           output: {
-            globals: {
-              react: 'React',
-              'react-dom': 'ReactDOM'
-            }
+            name: 'AccesibilifySDK',
+            minifyInternalExports: true,
+            compact: true,
+            manualChunks: undefined
           }
-        }
+        },
+        minify: 'terser',
+        sourcemap: true,
+        target: 'es2018'
       }
     };
   }
@@ -41,12 +44,11 @@ export default defineConfig(({ command, mode }) => {
   }
 
   if (command === 'build' && mode === 'web') {
-    // Web app build configuration
     return {
       plugins: [react()],
       build: {
-        outDir: 'dist_web',
-      },
+        outDir: 'dist/web_app'
+      }
     };
   }
 

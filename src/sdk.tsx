@@ -90,7 +90,6 @@ if (typeof window !== 'undefined') {
     };
 }
 
-// Export for ES modules
 export default {
     init: initAccesibilify
 };

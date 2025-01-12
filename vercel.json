@@ -1,0 +1,24 @@
+{
+    "buildCommand": "npm run vercel-build",
+    "outputDirectory": "dist",
+    "routes": [
+        {
+            "source": "/sdk/(.*)",
+            "destination": "/sdk/$1"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/web_app/$1"
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/sdk/(.*)",
+            "destination": "/sdk/$1"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/web_app/index.html"
+        }
+    ]
+}
