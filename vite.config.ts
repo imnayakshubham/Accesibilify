@@ -9,11 +9,15 @@ export default defineConfig(({ command, mode }) => {
   if (mode === 'sdk') {
     return {
       plugins: [react()],
+      define: {
+        'process.env': JSON.stringify({}),
+        'process.env.NODE_ENV': JSON.stringify(mode)
+      },
       build: {
         outDir: 'dist/sdk',
         lib: {
           entry: path.resolve(__dirname, 'src/integration.tsx'),
-          name: 'AccesibilifySDK',
+          name: 'AccessibilityWidgetSDK',
           formats: ['umd', 'es'],
           fileName: (format) => `accesibilify-sdk.${format}.js`
         },
