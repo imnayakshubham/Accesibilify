@@ -29,7 +29,9 @@ export default defineConfig(({ command, mode }) => {
             },
             inlineDynamicImports: true
           }
-        }
+        },
+        cssCodeSplit: false,
+        cssMinify: true
       }
     };
   }
