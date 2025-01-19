@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { AppContextProvider } from './Context/Context';
 import { Widget } from './components/Widget/Widget';
+import './index.css';
 
 interface AccessibilityWidgetConfig {
     appId?: string;
