@@ -2,6 +2,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { crx } from '@crxjs/vite-plugin';
 import manifest from './manifest.json';
+import path from 'path';
+
 
 export default defineConfig(({ command, mode }) => {
   if (mode === 'sdk') {
@@ -10,7 +12,7 @@ export default defineConfig(({ command, mode }) => {
       build: {
         outDir: 'dist/sdk',
         lib: {
-          entry: 'src/sdk.tsx',
+          entry: path.resolve(__dirname, 'src/integration.tsx'),
           name: 'AccesibilifySDK',
           formats: ['umd', 'es'],
           fileName: (format) => `accesibilify-sdk.${format}.js`
@@ -21,15 +23,9 @@ export default defineConfig(({ command, mode }) => {
             globals: {
               react: 'React',
               'react-dom': 'ReactDOM'
-            },
-            name: 'AccesibilifySDK',
-            minifyInternalExports: true,
-            compact: true
+            }
           }
-        },
-        minify: 'terser',
-        sourcemap: true,
-        target: 'es2018'
+        }
       }
     };
   }
