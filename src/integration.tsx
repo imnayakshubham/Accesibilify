@@ -1,6 +1,8 @@
 import { createRoot } from "react-dom/client";
 import { AppContextProvider } from './Context/Context';
 import { Widget } from './components/Widget/Widget';
+
+// Import Tailwind styles
 import './index.css';
 
 interface AccessibilityWidgetConfig {
@@ -18,6 +20,7 @@ declare global {
         };
     }
 }
+
 // Function to load external scripts
 const loadScript = (url: string): Promise<void> => {
     return new Promise((resolve, reject) => {
@@ -32,11 +35,13 @@ const loadScript = (url: string): Promise<void> => {
 
 const initialize = async (config: AccessibilityWidgetConfig): Promise<void> => {
     try {
-        // Load React and ReactDOM
-        await Promise.all([
-            loadScript('https://unpkg.com/react@18/umd/react.production.min.js'),
-            loadScript('https://unpkg.com/react-dom@18/umd/react-dom.production.min.js'),
-        ]);
+        // Load React and ReactDOM if not already loaded
+        if (!window.React) {
+            await loadScript('https://unpkg.com/react@18/umd/react.production.min.js');
+        }
+        if (!window.ReactDOM) {
+            await loadScript('https://unpkg.com/react-dom@18/umd/react-dom.production.min.js');
+        }
 
         const { appId = "default" } = config;
 
