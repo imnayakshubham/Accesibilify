@@ -18,29 +18,52 @@ declare global {
     }
 }
 
-const initialize = (config: AccessibilityWidgetConfig): void => {
-    const { appId = "default" } = config;
+const loadScript = (url: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = url;
+        script.crossOrigin = "anonymous";
+        script.onload = () => resolve();
+        script.onerror = () => reject();
+        document.head.appendChild(script);
+    });
+};
 
-    if (!appId) {
-        console.error('App ID is required');
-        return;
+const initialize = async (config: AccessibilityWidgetConfig): Promise<void> => {
+    try {
+        // Load React and ReactDOM if not already loaded
+        if (!window.React) {
+            await loadScript('https://unpkg.com/react@18/umd/react.production.min.js');
+        }
+        if (!window.ReactDOM) {
+            await loadScript('https://unpkg.com/react-dom@18/umd/react-dom.production.min.js');
+        }
+
+        const { appId = "default" } = config;
+
+        if (!appId) {
+            console.error('App ID is required');
+            return;
+        }
+
+        // Remove existing widget if present
+        const existingWidget = document.getElementById('accessibility-widget-root');
+        if (existingWidget) {
+            existingWidget.remove();
+        }
+
+        const widgetRoot = document.createElement('div');
+        widgetRoot.id = 'accessibility-widget-root';
+        document.body.appendChild(widgetRoot);
+
+        createRoot(widgetRoot).render(
+            <AppContextProvider>
+                <Widget />
+            </AppContextProvider>
+        );
+    } catch (error) {
+        console.error('Failed to initialize AccessibilityWidget:', error);
     }
-
-    // Remove existing widget if present
-    const existingWidget = document.getElementById('accessibility-widget-root');
-    if (existingWidget) {
-        existingWidget.remove();
-    }
-
-    const widgetRoot = document.createElement('div');
-    widgetRoot.id = 'accessibility-widget-root';
-    document.body.appendChild(widgetRoot);
-
-    createRoot(widgetRoot).render(
-        <AppContextProvider>
-            <Widget />
-        </AppContextProvider>
-    );
 };
 
 // For UMD/script tag usage

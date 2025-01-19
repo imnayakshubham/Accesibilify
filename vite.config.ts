@@ -18,16 +18,16 @@ export default defineConfig(({ command, mode }) => {
         lib: {
           entry: path.resolve(__dirname, 'src/integration.tsx'),
           name: 'AccessibilityWidgetSDK',
-          formats: ['umd', 'es'],
+          formats: ['umd'],
           fileName: (format) => `accesibilify-sdk.${format}.js`
         },
         rollupOptions: {
-          external: ['react', 'react-dom'],
           output: {
             globals: {
               react: 'React',
               'react-dom': 'ReactDOM'
-            }
+            },
+            inlineDynamicImports: true
           }
         }
       }

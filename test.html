@@ -2,19 +2,16 @@
 <html>
 <head>
     <title>Accesibilify SDK Test</title>
+    <script src="https://accesibilify.vercel.app/sdk/accesibilify-sdk.umd.js"></script>
 </head>
 <body>
     <h1>Test Content</h1>
     <p>This is a test paragraph to verify accessibility features.</p>
     
-    <script src="https://accesibilify.vercel.app/sdk/accesibilify-sdk.umd.js"></script>
     <script>
         AccessibililtyWidgetSDK.initialize({
             appId: 'test-app',
-            position: 'bottom-right',
-            theme: {
-                primaryColor: '#3B82F6'
-            }
+            position: 'bottom-right'
         });
     </script>
 </body>
